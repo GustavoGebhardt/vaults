@@ -11,7 +11,7 @@ const nextAuthOptions: NextAuthOptions = {
             },
 
             async authorize(credentials, req) {
-                const response = await fetch("https://backend-treino-hackathon.onrender.com/session", {
+                const response = await fetch("http://localhost:4000/login", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -30,7 +30,18 @@ const nextAuthOptions: NextAuthOptions = {
         })
     ],
     pages: {
-        signIn: "/login"
+        signIn: "/login",
+        newUser: "/newUser"
+    },
+    callbacks: {
+        async jwt({ token, user }) {
+            user && ( token.user = user)
+            return token
+        },
+        async session({ session, token }){
+            session.user = token.user as any
+            return session
+        }
     }
 }
 

@@ -3,11 +3,14 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { SyntheticEvent, useState } from "react";
 
 export default function Page(){
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+
+    const router = useRouter()
     
     async function handleSubmit(event: SyntheticEvent){
         event.preventDefault()
@@ -18,7 +21,9 @@ export default function Page(){
             redirect: false
         })
 
-        console.log(result)
+        if(result!.ok){
+            router.replace("/dashboard")
+        }
     }
 
     return(
