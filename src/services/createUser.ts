@@ -31,7 +31,7 @@ export default async function createUser(username: string, email: string, passwo
     }
 
     try{
-        const response = await fetch("http://localhost:4000/createUser", {
+        const response = await fetch(`http://localhost:4000/createUser`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

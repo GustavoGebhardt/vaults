@@ -5,8 +5,9 @@ import { Input } from "@/components/ui/input";
 import { SyntheticEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Checkbox } from "@/components/ui/checkbox";
-import createUser from "@/components/createUser";
+import createUser from "@/services/createUser";
 import { Toaster, toast } from "sonner";
+import { AlertDialog, AlertDialogContent, AlertDialogTitle, AlertDialogDescription, AlertDialogCancel, AlertDialogAction, AlertDialogHeader, AlertDialogFooter } from '@/components/ui/alert-dialog';
 
 interface ErrorItem {
     field: string | number;
@@ -29,7 +30,18 @@ export default function Page(){
     const arrayErroEmail: any[] = []
     const arrayErroPasswrod: any[] = []
 
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+
     const router = useRouter()
+
+    function chengeDialog(){
+        setIsDialogOpen(!isDialogOpen);
+    };
+
+    function redirectUser(){
+        toast.success("User created successfully")
+        router.replace("/login")
+    }
 
     function changeTerms(){
         if(terms){
@@ -41,7 +53,7 @@ export default function Page(){
 
     function passwordMatch(){
         if(password != passwordCheck){
-            seterrorsPasswordMatch("The passwords don't match")
+            seterrorsPasswordMatch("Passwords do not match")
         } else {
             seterrorsPasswordMatch("")
         }
@@ -54,6 +66,8 @@ export default function Page(){
         seterrorsEmail([])
         setErrorsPassword([])
 
+        //------------------------------------------------
+
         if(!terms){
             toast.error("You need to accept the terms")
         }
@@ -61,6 +75,8 @@ export default function Page(){
         if(password != passwordCheck){
             toast.error("Passwords do not match")
         }
+
+        //------------------------------------------------
 
         const result = await createUser(username, email, password)
 
@@ -107,8 +123,7 @@ export default function Page(){
         }
 
         if(!result.error && !result.errorsZed) {
-            toast.success("User created successfully")
-            router.replace("/login")
+            setIsDialogOpen(true)
         }
     }
 
@@ -116,6 +131,20 @@ export default function Page(){
         <>
             <div className="w-screen h-screen flex flex-col justify-center items-center">
                 <Toaster />
+                <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                        <AlertDialogTitle>Check your email</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            Please check your email to verify your account.
+                            Once verified, you will be able to log in.
+                        </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                        <AlertDialogAction onClick={redirectUser}>Continue</AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
                 <form className="w-72 flex flex-col gap-5" onSubmit={handleSubmit}>
                     <Input type="text" placeholder="Username" onChange={(e) => setUsername(e.target.value)}></Input>
                     <>
