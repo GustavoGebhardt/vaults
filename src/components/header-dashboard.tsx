@@ -3,13 +3,14 @@
 import LogOutButton from "@/components/logout-button";
 import ThemeButton from "@/components/theme-button";
 import { useState } from "react";
-import { BellRing, CalendarDays } from "lucide-react"
+import { BellRing, CalendarDays, Check } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import { Input } from "./ui/input";
 import {
     Sheet,
     SheetContent,
     SheetDescription,
+    SheetFooter,
     SheetHeader,
     SheetTitle,
     SheetTrigger,
@@ -40,6 +41,21 @@ interface HeaderDashboardProps{
 
 export default function HeaderDashboard({ userName }: HeaderDashboardProps){
     const [notifications, setNotifications] = useState(false)
+
+    const notification = [
+        {
+            title: "Your call has been confirmed.",
+            description: "1 hour ago",
+        },
+        {
+            title: "You have a new message!",
+            description: "1 hour ago",
+        },
+        {
+            title: "Your subscription is expiring soon!",
+            description: "2 hours ago",
+        },
+      ]
 
     function changeNotifications(){
         setNotifications(!notifications)
@@ -144,12 +160,32 @@ export default function HeaderDashboard({ userName }: HeaderDashboardProps){
             <Sheet open={notifications} onOpenChange={changeNotifications}>
                 <SheetContent>
                     <SheetHeader>
-                        <SheetTitle>Are you absolutely sure?</SheetTitle>
+                        <SheetTitle className="text-2xl font-bold">Notifications</SheetTitle>
                         <SheetDescription>
-                            This action cannot be undone. This will permanently delete your account
-                            and remove your data from our servers.
+                            You have {notification.length} unread messages.
                         </SheetDescription>
                     </SheetHeader>
+                    <div className="pt-8 pb-8">
+                        {notification.map((notification, index) => (
+                            <div
+                                key={index}
+                                className="mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0"
+                                >
+                                <span className="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500" />
+                                <div className="space-y-1">
+                                    <p className="text-sm font-medium leading-none">
+                                    {notification.title}
+                                    </p>
+                                    <p className="text-sm text-muted-foreground">
+                                    {notification.description}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <Button className="w-full">
+                        <Check className="mr-2 h-4 w-4" /> Mark all as read
+                    </Button>
                 </SheetContent>
             </Sheet>
         </>
