@@ -38,10 +38,9 @@ export default function LogOutButton(){
             <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                    <AlertDialogTitle>Check your email</AlertDialogTitle>
+                    <AlertDialogTitle>Tem certeza que deseja sair?</AlertDialogTitle>
                     <AlertDialogDescription>
-                        Please check your email to verify your account.
-                        Once verified, you will be able to log in.
+                        Sua sessão será finalizada.
                     </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>

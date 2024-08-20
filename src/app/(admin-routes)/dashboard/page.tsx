@@ -122,7 +122,7 @@ export default async function Page(){
                         <Card className="w-[350px]">
                             <CardHeader>
                                 <CardTitle>Compartilhar</CardTitle>
-                                <CardDescription>Deploy your new project in one-click.</CardDescription>
+                                <CardDescription>Compartilhe senhas com outros usuarios.</CardDescription>
                             </CardHeader>
                             <CardContent>
                                 
@@ -183,7 +183,7 @@ export default async function Page(){
                         <Card className="w-[350px]">
                             <CardHeader>
                                 <CardTitle>Senhas Recentes</CardTitle>
-                                <CardDescription>Deploy your new project in one-click.</CardDescription>
+                                <CardDescription>Copie rapidamente senhas utilizadas com frequencia.</CardDescription>
                             </CardHeader>
                             <CardContent>
                             <div className="pt-3">
@@ -214,7 +214,7 @@ export default async function Page(){
                         <Card className="w-[350px]">
                             <CardHeader>
                                 <CardTitle>Cofre</CardTitle>
-                                <CardDescription>Deploy your new project in one-click.</CardDescription>
+                                <CardDescription>Acesse o cofre com todas suas snehas.</CardDescription>
                             </CardHeader>
                             <CardContent>
                                 
